@@ -251,5 +251,5 @@ let viewController = ViewController(dataLoader: dataLoader)
 4. Fluent interface - WikiPedia
 
 ### 版本資訊:
-0.1.0 2021/12/09
-0.1.1 2021/12/13 - fix typo and add missing text  
+- 0.1.0 2021/12/09
+- 0.1.1 2021/12/13 - fix typo and add missing text  
