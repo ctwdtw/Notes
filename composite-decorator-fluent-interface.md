@@ -1,7 +1,7 @@
 ## 使用 Composite & Decorator Pattern 實作資料的讀取和緩存
 
 ### 摘要：
-本篇筆記介紹如何使用 `Decorator Pattern` 和 `Composite Pattern` 來重構 ViewController 中複雜的條件敘述。筆記一開始粗略地描述了用程序式寫法 (`Procedure code`) 實現需求的問題，接著說明使用物件導向的設計原則和前設計模式可以得到一個更好的解決更好的設計解決方案。文末
+本篇筆記介紹如何使用 `Decorator Pattern` 和 `Composite Pattern` 來重構 ViewController 中複雜的條件敘述。筆記一開始粗略地描述了用程序式寫法 (`Procedure code`) 實現需求的問題，接著說明使用物件導向的設計原則和前設計模式可以得到一個更好的解決更好的設計解決方案。文末介紹了如何使用流式接口`(Fluent Interface)`，提高`Composite Pattern`結構的可讀性。
 
 
 ### 狀況：
@@ -51,6 +51,7 @@ class ViewController {
 遵循物件導向設計原則的建議，我們應該可以找到更好的設計，讓我們整體的 code 有更好的可讀性，並且可以應付可能的需求變化。
 
 - 尋找介面：
+
 觀察需求，我們不難發現 app 在不同的「條件」底下 (ex. 有無網路, 資料是否過期 ... etc.)，需要有類似的`行為` - 即「讀取資料」。這些類似的行為，可以用同一介面讓 VC 去依賴，VC本身只關心有一個介面讓它傳送`讀取資料`這個訊息VC 完全信賴介面背後的實作會好好地處理讀取資料的細節，它只告訴介面去執行讀取資料的任務，而不問資料處理的細節中，所遇到的問題 (ex. 有沒有網路，本地端資料有沒有過期 ... etc.)，此即物件導向中的 `Tell don't ask principle`：
 
 ```Swift
@@ -60,6 +61,7 @@ protocol DataLoader {
 }
 ```
 - 實作介面：
+
 我們可以用 `DefaultLoader`, `LocalLoader`, `RemoteLoader` 這三個 class 分別去實作需求中「讀取預設資料」、「讀取網路端資料」和「讀取本地端資料」:
 
 ```Swift
@@ -118,7 +120,8 @@ class RemoteLoader: DataLoader {
 
 我們可以在`RemoteLoader`加入繼續加入「將最新抓取的資料，保存到本地端」的需求。然而，這樣做會將`RemoteLoader`的職責變得不再單純 - 混入了「讀取資料」和「緩存資料」的邏輯。在`RemoteLoader`中混入這兩種邏輯並ㄧ定是不好的做法，依據我們對需求變化的了解程度與對程式碼可讀性的容忍度，我們可以選擇是否要將這兩個職責分離開來。例如，如果我們知道 pm 有計劃在產品推廣期結束後，將「離線閱讀資料」這個功能分離出來給「付費使用者」(premium user)的話，我們就有必要尋找比直接混入職責到 `RemoteLoader` 中更好的設計。
 
-- 利用 Decorator Pattern 添加行為
+- 利用 Decorator Pattern 添加行為：
+
 我們想要增加「保存資料到本地端」的行為給 `RemoteLoader` 但又不希望對 `RemoteLoader` 進行直接修改。《設計模式的解析與活用》 一書中介紹並描述了 Decorator Pattern 的意圖：
 > 動態地給一個物件增加一些額外的職責。就增加功能來說，Decorator Pattern 比生成子類別更為靈活。
 
@@ -158,7 +161,8 @@ class DataLoaderCacheDecorator: DataLoader {
 }
 
 ```
-- 利用 Composite Pattern 組合條件
+- 利用 Composite Pattern 組合條件：
+
 到目前為止，我們已經將需求中的職責分散到一個個的需求中了，現在我們需要將這些物件依照需求中安排的「條件」組合起來。仔細觀察需求，我們會發現需求中不斷地一再重複 `先走 xxx, 若 xxx 失敗，就改走 yyy` 的模式；換句話說，我們有個一再重複的 `primary/secondary` 結構將 `DataLoader` 的實作組織起來，每次的 secondary 都可以帶出下一組的 primary/secondary 結構，如同樹枝向上不斷地長出樹枝和樹葉一般。這種樹狀結構，在 Raywenderlich 的 《Design Patterns By Tutorial》一書中，被稱為 Composite Pattern：
 > The composite pattern is a structural pattern that groups a set of objects into a tree structure so they may be manipulated as though they were one object 
 
@@ -209,6 +213,7 @@ let viewController = ViewController(dataLoader: dataLoader)
 
 ```
 - 流式接口 (Fluent Interface)：
+
 Fluent Interface 是由 Martin Fowler 和 Eric Evans 在 2005 提出的一種物件導向 API 的設計方法，目的是為了提高 code 的可讀性。實作 Fluent Interface API 的關鍵在於讓物件接收訊息之後將自己回傳出去，作為下一次接收訊息的物件：
 ```Swift
 extension DataLoader {
@@ -246,4 +251,5 @@ let viewController = ViewController(dataLoader: dataLoader)
 4. Fluent interface - WikiPedia
 
 ### 版本資訊:
-0.1.0 2021/12/09 
+- 0.1.0 2021/12/09
+- 0.1.1 2021/12/13 - fix typo and add missing text  
