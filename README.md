@@ -1,2 +1,3 @@
 ## 找個地方放筆記 ...
 - [使用 Composite & Decorator Pattern 實作資料的讀取和緩存](https://github.com/ctwdtw/Notes/blob/main/composite-decorator-fluent-interface.md)
+- [使用 Decorator Pattern 管理橫切關注點 (cross-cutting-concern) 的程式碼 - 以 threading 為例](https://github.com/ctwdtw/Notes/blob/main/decorator-cross-cutting-concern.md)
