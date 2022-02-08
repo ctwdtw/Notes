@@ -227,15 +227,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 使用 MVP pattern, 我們將基於 UIKit 的 MVC 的 toy project 成功地 migrate 到 swiftUI。完整的 code 可以在 [GitHub](https://github.com/ctwdtw/ToDoDemo/tree/swiftUI) 上照到。 MVP 的 migration 策略適用於本身沒有引入 (RxSwift, RxCocoa)/(Combine, CombineCocoa) 的專案，如果專案本身為了簡化 async 邏輯的交互影響 (interdependency) 已經引入了 reactive programming 的套件，則需要再考慮其他的 migration 策略 [[7](https://github.com/CombineCommunity/RxCombine/issues/4)]。
 
 ### 參考資料：
-[1] Clean Architecture - https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html
-[2] MVVM - https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93viewmodel
-[3] MVP - https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93presenter
-[4] 漫談 iOS 架構：從 MVC 到 VIPER，以及 Redux - https://chiahsien.github.io/post/common-ios-architecture-from-mvc-to-viper-with-redux/
-[5] The introduction to Reactive Programming you've been missing - https://gist.github.com/staltz/868e7e9bc2a7b8c1f754
-[6] RxCombine - https://github.com/CombineCommunity/RxCombine
-[7] Bridging RxSwift to SwiftUI - https://github.com/CombineCommunity/RxCombine/issues/4
-[8] 單向數據流的函數式 View Controller - https://onevcat.com/2017/07/state-based-viewcontroller/
-[9] iOS Lead Essential Program - https://www.essentialdeveloper.com/
+1. Clean Architecture - https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html
+2. MVVM - https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93viewmodel
+3. MVP - https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93presenter
+4. 漫談 iOS 架構：從 MVC 到 VIPER，以及 Redux - https://chiahsien.github.io/post/common-ios-architecture-from-mvc-to-viper-with-redux/
+5. The introduction to Reactive Programming you've been missing - https://gist.github.com/staltz/868e7e9bc2a7b8c1f754
+6. RxCombine - https://github.com/CombineCommunity/RxCombine
+7. Bridging RxSwift to SwiftUI - https://github.com/CombineCommunity/RxCombine/issues/4
+8. 單向數據流的函數式 View Controller - https://onevcat.com/2017/07/state-based-viewcontroller/
+9. iOS Lead Essential Program - https://www.essentialdeveloper.com/
 
 ### 版本資訊:
 - 0.1.0 2022/02/08
