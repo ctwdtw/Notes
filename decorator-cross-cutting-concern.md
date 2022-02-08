@@ -120,11 +120,15 @@ class ProfileViewController {
 ```
 
 ### 結果：
-我們使用了 `DecoratorPattern` 去管理了原本被放置在 `ProfileViewController` 裡的程式碼，事實上，這樣的程式碼除了被放置在 `ProfileViewController` 中，還可能散落在其他的 View Controller 中，這種無法依照分層結構 (例如 Clean Architecture 的分層 [4] ) 被妥善管理的程式碼，我們稱之為 cross-cutting concern (橫切關注點) [5] - 這種程式碼橫
+我們使用了 `DecoratorPattern` 去管理了原本被放置在 `ProfileViewController` 裡的程式碼，事實上，這樣的程式碼除了被放置在 `ProfileViewController` 中，還可能散落在其他的 View Controller 中，這種無法依照分層結構 (例如 Clean Architecture 的分層 [4] ) 被妥善管理的程式碼，我們稱之為 cross-cutting concern (橫切關注點) [5]。
 
-根據維基百科, cross-cutting-concern 相關的問題還有 1. logging, 2.authentication
+根據 Wikipedia, cross-cutting concern 相關的問題還有：
+ - Logging (日誌)： 
+ 當我們在 app 中下 logging debug 的時候，會希望能有夠多，但又不能太多的 logging 資訊，否則過多的 loggin 資訊就會變成雜訊。Logging 會需要加在可能不只一個物件上，這些物件也可能跨了不同的 feature, 因為 logging 也算是 cross-cutting concern 的問題。此時若我們把 logging 相關的 code 集中到 decorator 上，添加 logging 的裝飾到我們關心的物件中，待 debug 完成，就可以再 DI 原本沒有加入 logging 裝飾的物件，回復到單純到 prod. code. 如此一來，如果下次的 debug 有需要相關元件的 logging 資訊，就只要再 DI 經過 decorator 裝飾的物件，並重複這個過程，若我們 logging 細粒度是在物件的層次上，用 decorator 的做法，能免去重寫 log 的麻煩。 
+ 
+- Authentication (認證):
+ 我們在打後台 API 的時候，有些 api 會需要類似 jwt 的 token. 但可能不是所有的 api 都需要 token. 向後台要 token 的認證問題，跨了不同的 feature 的 api, 也算是一種 cross-cutting concern 的問題。此時我們可以把向後台要 token 的邏輯，集中在 decorator 中，並對向後台發送 api 的底層物件，在需要的時候添加 decorator 的裝飾，這樣就可以避免 auth 相關的 code, 散落在不同 feature 的各個地方。
 
-//4. threading 是不能分層的, 他可能在某個垂直的 feature 的某層中有, 也可能在某個垂直的 feature 的某層中沒有, 他橫切整個分層, 因此被稱為是 cross-cutting concern.
 
 ### 參考資料：
 1. https://developer.apple.com/documentation/uikit 
