@@ -47,7 +47,7 @@ override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexP
 在這樣的災難發生之前，我們必須採取積極的行動，免得問題變的一發不可收拾。
 
 ### 行動：
-寫出好的物件導向 (Object-oriented programming) 程式碼的關鍵之一在於找出物件的介面，並對物件的介面傳送訊息；一但我們有了介面，就可以對介面發送同樣的訊息，而不需關心底層不同型別的實作，大幅降低 client 端 code 的複雜度。
+寫出好的物件導向 (Object-oriented programming) 程式碼的關鍵之一在於找出物件的介面 [1, 2]，並對物件的介面傳送訊息；一但我們有了介面，就可以對介面發送同樣的訊息，而不需關心底層不同型別的實作，大幅降低 client 端 code 的複雜度。
 
 觀察我們的 data source code, `.input` 和 `.todos` 就是不同型別的物件，data source 的 switch statement 判斷了這兩個型別後，再把用不同的實作
 ```Swift
@@ -173,8 +173,8 @@ extension TableViewController {
 完整的程式碼可以在 [GitHub](https://github.com/ctwdtw/ToDoDemo/tree/illustrate-polymorphism) 上被找到。
 
 ### 參考資料：
-1. Ruby物件導向設計實踐：敏捷入門 (Practical Object-Oriented Design in Ruby: An Agile Primer),  Sandi Metz 
-2. 設計模式的解析與活用（Design Patterns Explained: A New Perspective on Object-Oriented Design, 2nd Edition）- 博碩文化, Alan Shalloway, James R. Trott
+1. Ruby物件導向設計實踐：敏捷入門 (Practical Object-Oriented Design in Ruby: An Agile Primer), CH4 - 博碩文博碩文化, Sandi Metz 
+2. 設計模式的解析與活用（Design Patterns Explained: A New Perspective on Object-Oriented Design, 2nd Edition）, CH1 - 博碩文化, Alan Shalloway, James R. Trott
 3. iOS Lead Essential Program - https://www.essentialdeveloper.com/
 
 ### 版本資訊:
